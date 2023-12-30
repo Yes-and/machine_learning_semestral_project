@@ -1,0 +1,19 @@
+There are three dataframes: train, test and val which come from a master dataset.
+
+The master is train_data.csv, where NA values have been dropped for columns FTHG, FTAG, HTHG, HTAG, HomeTeam, AwayTeam, Div and Date. Later, FTR and HTR are recalculated from FTHG and FTAG, and remaining nulls are dropped.
+
+Outliers have been dropped for FTHG, HTHG, FTAG and FTAG (games with over 50 goals) which leave a dataset where a max goal by one side value of 10.
+
+Some outliers were not dropped, but capped (winsorized). This was done for values of odds. Firstly, average odds for each outcome were calculated as a mean value and NAs were dropped. Later, they were capped at a maximum value of 10, and a boolean column with value of True was created for rows that were capped.
+
+Continuing on, a joint variable of year and league division was created for stratification purposes when splitting data into train/test/val sets. 
+
+Data was split into train/test/val sets. Train set was used for training encoding, and the others only mapped values calculated from train set.
+
+Moving on, teams were encoded according to the number of shots they shoot on average. Teams that didn't have a value use the average number of shots in the train set.
+
+The same was done for division, but here average number of yellow and red cards were calculated.
+
+Selected columns were chosen, and datasets were exported.
+
+Train test has 100k observations, test and val have 22k.
